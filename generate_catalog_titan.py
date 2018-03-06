@@ -34,7 +34,7 @@ slope = 1.0
 secday = 60.0*60.0*24.0
 secyear = secday*365.0
 secmonth = secday*30.0
-catlength = 1.0*TCycleYrs*secyear
+catlength = 10.0*TCycleYrs*secyear
 
 # Define upper and lower bounds with an order of magnitude uncertainty on both
 # m0total and max_m0
