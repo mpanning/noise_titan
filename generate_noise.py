@@ -273,12 +273,12 @@ for evt in tqdm(range(0, nevents)):
             tr.data = np.multiply(wt, tr.data)
         if (args.decimation is not None): #decimate if requested
             st.decimate(factor=args.decimation)
-    except ConnectionError: # If it doesn't return, 
+    except (ConnectionError, TypeError): # Catch http-related errors and retry 
         for i in range(maxRetry):
             try:
                 st = db.get_seismograms(source=source, receiver=receiver,
                                         remove_source_shift=False)
-            except ConnectionError:
+            except (ConnectionError, TypeError):
                 continue
             break
         else:
