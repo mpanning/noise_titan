@@ -282,7 +282,7 @@ for evt in tqdm(range(0, nevents)):
                 continue
             break
         else:
-            print "Could not connect after max retries"
+            print("Could not connect after max retries")
                 
 
     s1 = int(gr_obj.catalog.data[evt, time_id]/dt_out)
