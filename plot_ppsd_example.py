@@ -15,7 +15,7 @@ from operator import itemgetter
 # Get all filenames with this wildcard
 comp = sys.argv[1]
 db_short = sys.argv[2]
-filenames = glob.glob('noise_records/temp/*%s*.%s' % (db_short,comp))
+filenames = glob.glob('noise_records/*%s*.%s' % (db_short,comp))
 
 print('noise_records/*%s*.%s' % (db_short,comp))
 filenames.sort()
