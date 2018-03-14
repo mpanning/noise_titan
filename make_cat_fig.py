@@ -122,7 +122,7 @@ plt.semilogy(Mws, Ns_lower2, color="blue", linestyle="dotted")
 try:
     plt.semilogy(gr_obj.catalog.Mws, gr_obj.catalog.Ns, color="darkgreen",
                  linestyle="solid")
-except ValueError: #If catlog Mws and Ns not set
+except ValueError: #If catalog Mws and Ns not set
     plt.semilogy(Mws, Ns, color="darkgreen", linestyle="solid")
     
 plt.title("Gutenberg-Richter relationship")
