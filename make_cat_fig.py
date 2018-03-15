@@ -119,11 +119,10 @@ plt.semilogy(Mws, Ns_upper1, color="blue", linestyle="dashed")
 plt.semilogy(Mws, Ns_upper2, color="blue", linestyle="dotted")
 plt.semilogy(Mws, Ns_lower1, color="blue", linestyle="dashed")
 plt.semilogy(Mws, Ns_lower2, color="blue", linestyle="dotted")
-try:
-    plt.semilogy(gr_obj.catalog.Mws, gr_obj.catalog.Ns, color="darkgreen",
-                 linestyle="solid")
-except ValueError: #If catalog Mws and Ns not set
-    plt.semilogy(Mws, Ns, color="darkgreen", linestyle="solid")
+
+plt.semilogy(gr_obj.catalog.Mws[gr_obj.catalog.Ns != 0],
+             gr_obj.catalog.Ns[gr_obj.catalog.Ns != 0], color="darkgreen",
+             linestyle="solid")
     
 plt.title("Gutenberg-Richter relationship")
 plt.xlabel("Mw")
