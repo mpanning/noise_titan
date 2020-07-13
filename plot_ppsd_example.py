@@ -119,7 +119,9 @@ for filename in filenames:
     ppsd.add(st)
 
 # Load SP self-noise data
-seis_types = ['SP_Imperial', 'STS2', '10Hz_geophone',
+# seis_types = ['SP_Imperial', 'STS2', '10Hz_geophone',
+#               'Trillium_compact']
+seis_types = ['PSS', 'STS2', '10Hz_geophone',
               'Trillium_compact']
 period = dict()
 psd = dict()
@@ -143,6 +145,7 @@ for seis in seis_types:
 color['STS2'] = 'cyan'
 color['10Hz_geophone'] = 'yellow'
 color['Trillium_compact'] = 'fuchsia'
+color['PSS'] = 'red'
 
 # Plot PPSD
 #h = ppsd.plot(period_lim=[0.5,500], show=False,

@@ -77,8 +77,10 @@ args = parser.parse_args()
                                  
 
 # Details for noise record calculation
-instaseisDB= "http://instaseis.ethz.ch/icy_ocean_worlds/Tit046km-33pNH-hQ_noiceVI_2s"
-db_short = 'Titan46'
+# instaseisDB= "http://instaseis.ethz.ch/icy_ocean_worlds/Tit046km-33pNH-hQ_noiceVI_2s"
+# db_short = 'Titan46'
+instaseisDB = "http://instaseis.ethz.ch/icy_ocean_worlds/Tit124km-33pNH-hQ_2s"
+db_short = 'Titan124'
 taperFrac = 0.05 #end taper length as fraction of db record length
 endCutFrac = 0.0 #Allows cutting of end of records to remove numerical probs
 maxRetry = 100 

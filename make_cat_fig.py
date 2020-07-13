@@ -11,7 +11,12 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pylab as P
 from tqdm import tqdm
-import cPickle as pickle
+import sys
+python3 = sys.version_info > (3,0)
+if python3:
+    import pickle
+else:
+    import cPickle as pickle
 import sys
 
 # Determine if the output filename is specified on command line
@@ -19,6 +24,7 @@ if len(sys.argv) > 1:
     filein = sys.argv[1]
 else:
     print('Usage: python make_cat_fig.py filein')
+    exit()
 
 # Basic characteristics of seismicity catalog
 # m0totalpercycle = 4.8e15
@@ -86,12 +92,18 @@ Ns_lower1 = gr_obj_lower1.get_N(Mws)
 Ns_lower2 = gr_obj_lower2.get_N(Mws)
 # max_dep = 2.0 #max depth in km, events will be uniform between 0 and max_dep
 
-# Convert Ns to be for one tidal cycle on Titan
-Ns = Ns * TCycleYrs
-Ns_upper1 = Ns_upper1 * TCycleYrs
-Ns_upper2 = Ns_upper2 * TCycleYrs
-Ns_lower1 = Ns_lower1 * TCycleYrs
-Ns_lower2 = Ns_lower2 * TCycleYrs
+# Convert Ns to be for catalog duration
+# Ns = Ns * TCycleYrs
+# Ns_upper1 = Ns_upper1 * TCycleYrs
+# Ns_upper2 = Ns_upper2 * TCycleYrs
+# Ns_lower1 = Ns_lower1 * TCycleYrs
+# Ns_lower2 = Ns_lower2 * TCycleYrs
+Ns = Ns * catlength/secyear
+Ns_upper1 = Ns_upper1 * catlength/secyear
+Ns_upper2 = Ns_upper2 * catlength/secyear
+Ns_lower1 = Ns_lower1 * catlength/secyear
+Ns_lower2 = Ns_lower2 * catlength/secyear
+
 
 # Calculate probability of a given event per second
 Nsec = Ns/secyear

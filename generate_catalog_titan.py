@@ -12,8 +12,13 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pylab as P
 from tqdm import tqdm
-import cPickle as pickle
 import sys
+
+python3 = sys.version_info > (3,0)
+if python3:
+    import pickle
+else:
+    import cPickle as pickle
 
 # Determine if the output filename is specified on command line
 if len(sys.argv) > 1:
@@ -22,19 +27,20 @@ else:
     fileout = 'catalog.pkl'
 
 # Basic characteristics of seismicity catalog
-m0totalpercycle = 4.8e15
+# Updated with numbers from Hurford et al. (2020)
+m0totalpercycle = 2.7e15
 TCycleHrs = 382.7
 HrsYr = 24.0*365.0
 TCycleYrs = TCycleHrs/HrsYr
 m0total = m0totalpercycle/TCycleYrs
-max_m0 = 4e16
-minM = -1.0
+max_m0 = 1.9e16
+minM = 0.0
 min_m0 = gr.calc_m0(minM)
 slope = 1.0
 secday = 60.0*60.0*24.0
 secyear = secday*365.0
 secmonth = secday*30.0
-catlength = 10.0*TCycleYrs*secyear
+catlength = 2.0*TCycleYrs*secyear
 
 # Define upper and lower bounds with an order of magnitude uncertainty on both
 # m0total and max_m0
