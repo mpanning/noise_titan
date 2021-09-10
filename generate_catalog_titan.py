@@ -40,7 +40,7 @@ slope = 1.0
 secday = 60.0*60.0*24.0
 secyear = secday*365.0
 secmonth = secday*30.0
-catlength = 2.0*TCycleYrs*secyear
+catlength = 10.0*TCycleYrs*secyear
 
 # Define upper and lower bounds with an order of magnitude uncertainty on both
 # m0total and max_m0
@@ -115,7 +115,7 @@ plt.ylabel("Magnitude")
 plt.xlim([0, ndays])
 plt.ylim([0, 6])
 
-# plt.subplot(3, 1, 3)
+# Plt.subplot(3, 1, 3)
 # numBins = 30
 # plt.hist(gr_obj.catalog.data[:,delta_id],numBins,color='green')
 # plt.title("Distances")
@@ -131,6 +131,45 @@ filename = fileout
 with open(filename, 'wb') as f:
     pickle.dump(gr_obj, f, -1)
 
+# Make a lower limit catalog
+gr_obj_lower.generate_catalog(catlength, max_dep=max_dep)
 
+# Plot it all up
+try:
+    time_id = gr_obj_lower.catalog.id_dict['time']
+    mag_id = gr_obj_lower.catalog.id_dict['magnitude']
+    delta_id = gr_obj_lower.catalog.id_dict['delta']
+except AttributeError:
+    time_id = 0
+    mag_id = 1
+    delta_id = 2
 
+plt.clf()
+plt.figure(figsize=(10,15))
+plt.subplot(2, 1, 1)
+plt.semilogy(Mws, Ns, color="blue", linestyle="solid")
+plt.semilogy(Mws, Ns_upper, color="blue", linestyle="dashed")
+plt.semilogy(Mws, Ns_lower, color="blue", linestyle="dashed")
+plt.semilogy(gr_obj_lower.catalog.Mws, gr_obj_lower.catalog.Ns,
+             color="darkgreen", linestyle="solid")
+plt.title("Gutenberg-Richter relationship")
+plt.xlabel("Mw")
+plt.ylabel("N")
 
+ndays = int(catlength/secday)
+plt.subplot(2, 1, 2)
+plt.scatter(gr_obj_lower.catalog.data[:,time_id]/secday,
+            gr_obj_lower.catalog.data[:,mag_id], facecolor='darkgreen')
+plt.title("%d day catalog" % ndays)
+plt.xlabel("Day")
+plt.ylabel("Magnitude")
+plt.xlim([0, ndays])
+plt.ylim([0, 6])
+
+figname = 'catalog_lower.png'
+P.savefig(figname)
+
+# Write out catalog to pickle file
+filename = 'catalog_lower.pkl'
+with open(filename, 'wb') as f:
+    pickle.dump(gr_obj, f, -1)
